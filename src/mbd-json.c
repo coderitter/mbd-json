@@ -1,4 +1,4 @@
-#include "mbd-json.h"
+#include "../include/mbd-json.h"
 
 void reset_json_data(json_data_t* data) {
     data->pos = 0;
