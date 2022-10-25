@@ -6,8 +6,8 @@ void reset_json_data(json_data_t* data) {
     data->parsing[0] = JSON_OBJECT_OR_ARRAY_BEFORE;
 }
 
-json_parse_result_t parse_json(const char* bytes, const uint16_t size, json_data_t* data) {
-    char c;
+json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_data_t* data) {
+    uint8_t c;
     uint8_t number_dot_appeared = 0;
 
     for (; data->pos < size; data->pos++) {

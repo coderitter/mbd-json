@@ -54,8 +54,8 @@ static int test_primitive_object(void) {
 
     {
         reset_json_data(&data);
-        const char json[] = "{}";
-        int result = parse_json(json, strlen(json), &data);
+        const uint8_t json[] = "{}";
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -63,7 +63,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.depth == 0);
@@ -71,8 +71,8 @@ static int test_primitive_object(void) {
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n} \r\t\n";
-        int result = parse_json(json, strlen(json), &data);
+        const uint8_t json[] = " \r\t\n{ \r\t\n} \r\t\n";
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -80,7 +80,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.depth == 0);
@@ -88,9 +88,9 @@ static int test_primitive_object(void) {
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":null}";
+        const uint8_t json[] = "{\"property1\":null}";
         
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -98,7 +98,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -109,16 +109,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 16);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\nnull \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\nnull \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -126,7 +126,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -137,15 +137,15 @@ static int test_primitive_object(void) {
         check(data.value.end == 32);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":true}";
-        int result = parse_json(json, strlen(json), &data);
+        const uint8_t json[] = "{\"property1\":true}";
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -153,7 +153,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -164,16 +164,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 16);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
         
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\ntrue \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\ntrue \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -181,7 +181,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -192,16 +192,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 32);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":false}";
+        const uint8_t json[] = "{\"property1\":false}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -209,7 +209,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -220,16 +220,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 17);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\nfalse \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\nfalse \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -237,7 +237,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -248,16 +248,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 33);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":0}";
+        const uint8_t json[] = "{\"property1\":0}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -265,7 +265,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -276,16 +276,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 13);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":0.0}";
+        const uint8_t json[] = "{\"property1\":0.0}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -293,7 +293,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -304,16 +304,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 15);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":-0.0}";
+        const uint8_t json[] = "{\"property1\":-0.0}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -321,7 +321,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -332,16 +332,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 16);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n-0.0 \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n-0.0 \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -349,7 +349,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -360,16 +360,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 32);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-         const char json[] = "{\"property1\":\"string\"}";
+         const uint8_t json[] = "{\"property1\":\"string\"}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -377,7 +377,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -388,16 +388,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 20);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -405,7 +405,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -416,16 +416,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 36);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":null,\"property2\":true,\"property3\":false,\"property4\":-0.0,\"property5\":\"string\"}";
+        const uint8_t json[] = "{\"property1\":null,\"property2\":true,\"property3\":false,\"property4\":-0.0,\"property5\":\"string\"}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -433,7 +433,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -444,7 +444,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 16);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -455,7 +455,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 33);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -466,7 +466,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 51);
         check(data.item_counter[0] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -477,7 +477,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 68);
         check(data.item_counter[0] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -488,16 +488,16 @@ static int test_primitive_object(void) {
         check(data.value.end == 89);
         check(data.item_counter[0] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 5);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property3\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property4\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property5\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property3\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property4\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property5\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -505,7 +505,7 @@ static int test_primitive_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -516,7 +516,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 32);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -527,7 +527,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 65);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -538,7 +538,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 99);
         check(data.item_counter[0] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -549,7 +549,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 132);
         check(data.item_counter[0] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -560,7 +560,7 @@ static int test_primitive_object(void) {
         check(data.value.end == 169);
         check(data.item_counter[0] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 5);
@@ -585,9 +585,9 @@ static int test_primitive_array(void) {
 
     {
         reset_json_data(&data);
-        const char json[] = "[]";
+        const uint8_t json[] = "[]";
     
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -597,7 +597,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.depth == 0);
@@ -605,9 +605,9 @@ static int test_primitive_array(void) {
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -617,7 +617,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.depth == 0);
@@ -625,9 +625,9 @@ static int test_primitive_array(void) {
     }
     {
         reset_json_data(&data);
-        const char json[] = "[null]";
+        const uint8_t json[] = "[null]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -637,7 +637,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -648,16 +648,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 4);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\nnull \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\nnull \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -667,7 +667,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -678,16 +678,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 12);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[true]";
+        const uint8_t json[] = "[true]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
     
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -697,7 +697,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -708,16 +708,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 4);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\ntrue \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\ntrue \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -727,7 +727,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -738,16 +738,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 12);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[false]";
+        const uint8_t json[] = "[false]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -757,7 +757,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -768,16 +768,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 5);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\nfalse \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\nfalse \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -787,7 +787,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -798,16 +798,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 13);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[-0.0]";
+        const uint8_t json[] = "[-0.0]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -817,7 +817,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -828,16 +828,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 4);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);    
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n-0.0 \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n-0.0 \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -847,7 +847,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -858,16 +858,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 12);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[\"string\"]";
+        const uint8_t json[] = "[\"string\"]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -877,7 +877,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -888,16 +888,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 8);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n\"string\" \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n\"string\" \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -907,7 +907,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -918,16 +918,16 @@ static int test_primitive_array(void) {
         check(data.value.end == 16);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[null,true,false,-0.0,\"string\"]";
+        const uint8_t json[] = "[null,true,false,-0.0,\"string\"]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -937,7 +937,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -948,7 +948,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 4);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -959,7 +959,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 9);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -970,7 +970,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 15);
         check(data.item_counter[0] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -981,7 +981,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 20);
         check(data.item_counter[0] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -992,15 +992,15 @@ static int test_primitive_array(void) {
         check(data.value.end == 29);
         check(data.item_counter[0] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1010,7 +1010,7 @@ static int test_primitive_array(void) {
         check(data.value.start == 4 );
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1021,7 +1021,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 12);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1032,7 +1032,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 25);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1043,7 +1043,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 39);
         check(data.item_counter[0] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1054,7 +1054,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 52);
         check(data.item_counter[0] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1065,7 +1065,7 @@ static int test_primitive_array(void) {
         check(data.value.end == 69);
         check(data.item_counter[0] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 5);
@@ -1090,9 +1090,9 @@ static int test_complex_object(void) {
 
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":{}}";
+        const uint8_t json[] = "{\"property1\":{}}";
         
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
         
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1100,7 +1100,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1111,7 +1111,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1122,16 +1122,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n} \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n} \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
         
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1139,7 +1139,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1150,7 +1150,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1161,16 +1161,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}}";
+        const uint8_t json[] = "{\"property1\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1178,7 +1178,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1189,7 +1189,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1203,7 +1203,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
         
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1217,7 +1217,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1231,7 +1231,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1245,7 +1245,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1259,7 +1259,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1270,16 +1270,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1287,7 +1287,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1298,7 +1298,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1312,7 +1312,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1326,7 +1326,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1340,7 +1340,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1354,7 +1354,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1368,7 +1368,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1379,16 +1379,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":{},\"property2\":{}}";
+        const uint8_t json[] = "{\"property1\":{},\"property2\":{}}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1396,7 +1396,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1407,7 +1407,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1418,7 +1418,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1429,7 +1429,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1440,16 +1440,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n} \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\n{ \r\t\n} \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n} \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\n{ \r\t\n} \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1457,7 +1457,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1468,7 +1468,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1479,7 +1479,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1490,7 +1490,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1501,16 +1501,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},\"property2\":{\"property21\":null,\"property22\":true,\"property23\":false,\"property24\":-0.0,\"property25\":\"string\"}}";
+        const uint8_t json[] = "{\"property1\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},\"property2\":{\"property21\":null,\"property22\":true,\"property23\":false,\"property24\":-0.0,\"property25\":\"string\"}}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1518,7 +1518,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1529,7 +1529,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1543,7 +1543,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1557,7 +1557,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1571,7 +1571,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1585,7 +1585,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1599,7 +1599,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1610,7 +1610,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1621,7 +1621,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1635,7 +1635,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1649,7 +1649,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1663,7 +1663,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1677,7 +1677,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1691,7 +1691,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1702,16 +1702,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n}, \r\t\n\"property2\" \r\t\n: \r\t\n{ \r\t\n\"property21\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property22\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property23\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property24\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property25\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n}, \r\t\n\"property2\" \r\t\n: \r\t\n{ \r\t\n\"property21\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property22\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property23\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property24\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property25\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1719,7 +1719,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1730,7 +1730,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1744,7 +1744,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1758,7 +1758,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1772,7 +1772,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1786,7 +1786,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1800,7 +1800,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1811,7 +1811,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1822,7 +1822,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1836,7 +1836,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1850,7 +1850,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1864,7 +1864,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1878,7 +1878,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1892,7 +1892,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1903,16 +1903,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":[]}";
+        const uint8_t json[] = "{\"property1\":[]}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1920,7 +1920,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1931,7 +1931,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1944,16 +1944,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\n] \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\n] \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1961,7 +1961,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -1972,7 +1972,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -1985,16 +1985,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":[null,true,false,-0.0,\"string\"]}";
+        const uint8_t json[] = "{\"property1\":[null,true,false,-0.0,\"string\"]}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2002,7 +2002,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2015,7 +2015,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2029,7 +2029,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2043,7 +2043,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2057,7 +2057,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2071,7 +2071,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2085,7 +2085,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2098,16 +2098,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2115,7 +2115,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2128,7 +2128,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2142,7 +2142,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2156,7 +2156,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2170,7 +2170,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2184,7 +2184,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2198,7 +2198,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2211,16 +2211,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":[],\"property2\":[]}";
+        const uint8_t json[] = "{\"property1\":[],\"property2\":[]}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2228,7 +2228,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2241,7 +2241,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2254,7 +2254,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2267,7 +2267,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2280,16 +2280,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\n] \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\n[ \r\t\n] \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\n] \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\n[ \r\t\n] \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2297,7 +2297,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2310,7 +2310,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2323,7 +2323,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2336,7 +2336,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2349,16 +2349,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":[null,true,false,-0.0,\"string\"],\"property2\":[null,true,false,-0.0,\"string\"]}";
+        const uint8_t json[] = "{\"property1\":[null,true,false,-0.0,\"string\"],\"property2\":[null,true,false,-0.0,\"string\"]}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2366,7 +2366,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2379,7 +2379,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2393,7 +2393,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2407,7 +2407,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2421,7 +2421,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2435,7 +2435,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2449,7 +2449,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2462,7 +2462,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2475,7 +2475,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2489,7 +2489,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2503,7 +2503,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2517,7 +2517,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2531,7 +2531,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2545,7 +2545,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2558,16 +2558,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n} \r\t\n";
+        const uint8_t json[] = " \r\t\n{ \r\t\n\"property1\" \r\t\n: \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n, \r\t\n\"property2\" \r\t\n: \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n} \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2575,7 +2575,7 @@ static int test_complex_object(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2588,7 +2588,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2602,7 +2602,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2616,7 +2616,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2630,7 +2630,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2644,7 +2644,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2658,7 +2658,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2671,7 +2671,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2684,7 +2684,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2698,7 +2698,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2712,7 +2712,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2726,7 +2726,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2740,7 +2740,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2754,7 +2754,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2767,16 +2767,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},\"property2\":[null,true,false,-0.0,\"string\"]}";
+        const uint8_t json[] = "{\"property1\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},\"property2\":[null,true,false,-0.0,\"string\"]}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2784,7 +2784,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2795,7 +2795,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -2808,7 +2808,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -2821,7 +2821,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -2834,7 +2834,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -2847,7 +2847,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -2860,7 +2860,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2871,7 +2871,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2884,7 +2884,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 110);
@@ -2897,7 +2897,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 110);
@@ -2910,7 +2910,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 110);
@@ -2923,7 +2923,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 110);
@@ -2936,7 +2936,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 110);
@@ -2949,7 +2949,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2962,16 +2962,16 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "{\"property1\":[null,true,false,-0.0,\"string\"],\"property2\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}}";
+        const uint8_t json[] = "{\"property1\":[null,true,false,-0.0,\"string\"],\"property2\":{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}}";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -2979,7 +2979,7 @@ static int test_complex_object(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -2992,7 +2992,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -3005,7 +3005,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -3018,7 +3018,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -3031,7 +3031,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -3044,7 +3044,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 1);
@@ -3057,7 +3057,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3070,7 +3070,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3081,7 +3081,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 45);
@@ -3094,7 +3094,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 45);
@@ -3107,7 +3107,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 45);
@@ -3120,7 +3120,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 45);
@@ -3133,7 +3133,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(data.depth == 1);
         check(data.path[0].start == 45);
@@ -3146,7 +3146,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3157,7 +3157,7 @@ static int test_complex_object(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
@@ -3182,9 +3182,9 @@ static int test_complex_array(void) {
 
     {
         reset_json_data(&data);
-        const char json[] = "[[]]";
+        const uint8_t json[] = "[[]]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3194,7 +3194,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3207,7 +3207,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3217,16 +3217,16 @@ static int test_complex_array(void) {
         check(data.value.end == 2);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n[ \r\t\n] \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n[ \r\t\n] \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3236,7 +3236,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3249,7 +3249,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3260,16 +3260,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[[null,true,false,-0.0,\"string\"]]";
+        const uint8_t json[] = "[[null,true,false,-0.0,\"string\"]]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3279,7 +3279,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3292,7 +3292,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3306,7 +3306,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3320,7 +3320,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3334,7 +3334,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3348,7 +3348,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3362,7 +3362,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3373,16 +3373,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3392,7 +3392,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3405,7 +3405,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3419,7 +3419,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3433,7 +3433,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3447,7 +3447,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3461,7 +3461,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3475,7 +3475,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3486,16 +3486,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[[],[]]";
+        const uint8_t json[] = "[[],[]]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3505,7 +3505,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3518,7 +3518,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3528,7 +3528,7 @@ static int test_complex_array(void) {
         check(data.value.end == 2);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3541,7 +3541,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3551,16 +3551,16 @@ static int test_complex_array(void) {
         check(data.value.end == 5);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n[ \r\t\n] \r\t\n, \r\t\n[ \r\t\n] \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n[ \r\t\n] \r\t\n, \r\t\n[ \r\t\n] \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3570,7 +3570,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3583,7 +3583,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3593,7 +3593,7 @@ static int test_complex_array(void) {
         check(data.value.end == 14);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3606,7 +3606,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3616,16 +3616,16 @@ static int test_complex_array(void) {
         check(data.value.end == 29);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[[null,true,false,-0.0,\"string\"],[null,true,false,-0.0,\"string\"]]";
+        const uint8_t json[] = "[[null,true,false,-0.0,\"string\"],[null,true,false,-0.0,\"string\"]]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3635,7 +3635,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3648,7 +3648,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3662,7 +3662,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3676,7 +3676,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3690,7 +3690,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3704,7 +3704,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3718,7 +3718,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3729,7 +3729,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3742,7 +3742,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3756,7 +3756,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3770,7 +3770,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3784,7 +3784,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3798,7 +3798,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3812,7 +3812,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3823,16 +3823,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n, \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n, \r\t\n[ \r\t\nnull \r\t\n, \r\t\ntrue \r\t\n, \r\t\nfalse \r\t\n, \r\t\n-0.0 \r\t\n, \r\t\n\"string\" \r\t\n] \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3842,7 +3842,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3855,7 +3855,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3869,7 +3869,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3883,7 +3883,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3897,7 +3897,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3911,7 +3911,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3925,7 +3925,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -3936,7 +3936,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3949,7 +3949,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3963,7 +3963,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3977,7 +3977,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -3991,7 +3991,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4005,7 +4005,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4019,7 +4019,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4030,16 +4030,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[{}]";
+        const uint8_t json[] = "[{}]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4049,7 +4049,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4060,7 +4060,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4070,16 +4070,16 @@ static int test_complex_array(void) {
         check(data.value.end == 2);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n{ \r\t\n} \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n{ \r\t\n} \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4089,7 +4089,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4100,7 +4100,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4110,16 +4110,16 @@ static int test_complex_array(void) {
         check(data.value.end == 14);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}]";
+        const uint8_t json[] = "[{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4129,7 +4129,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4140,7 +4140,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4154,7 +4154,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4168,7 +4168,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4182,7 +4182,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4196,7 +4196,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4210,7 +4210,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4221,16 +4221,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4240,7 +4240,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4251,7 +4251,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4265,7 +4265,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4279,7 +4279,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4293,7 +4293,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4307,7 +4307,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4321,7 +4321,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4332,16 +4332,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 1);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[{},{}]";
+        const uint8_t json[] = "[{},{}]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4351,7 +4351,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4362,7 +4362,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4372,7 +4372,7 @@ static int test_complex_array(void) {
         check(data.value.end == 2);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4383,7 +4383,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4393,16 +4393,16 @@ static int test_complex_array(void) {
         check(data.value.end == 5);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n{ \r\t\n} \r\t\n, \r\t\n{ \r\t\n} \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n{ \r\t\n} \r\t\n, \r\t\n{ \r\t\n} \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4412,7 +4412,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4423,7 +4423,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4433,7 +4433,7 @@ static int test_complex_array(void) {
         check(data.value.end == 14);
         check(data.item_counter[0] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4444,7 +4444,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4454,16 +4454,16 @@ static int test_complex_array(void) {
         check(data.value.end == 29);
         check(data.item_counter[0] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},{\"property21\":null,\"property22\":true,\"property23\":false,\"property24\":-0.0,\"property25\":\"string\"}]";
+        const uint8_t json[] = "[{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},{\"property21\":null,\"property22\":true,\"property23\":false,\"property24\":-0.0,\"property25\":\"string\"}]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4473,7 +4473,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4484,7 +4484,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4498,7 +4498,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4512,7 +4512,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4526,7 +4526,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4540,7 +4540,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4554,7 +4554,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4565,7 +4565,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4576,7 +4576,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4590,7 +4590,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4604,7 +4604,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4618,7 +4618,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4632,7 +4632,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4646,7 +4646,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4657,16 +4657,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = " \r\t\n[ \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n, \r\t\n{ \r\t\n\"property21\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property22\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property23\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property24\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property25\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n] \r\t\n";
+        const uint8_t json[] = " \r\t\n[ \r\t\n{ \r\t\n\"property11\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property12\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property13\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property14\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property15\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n, \r\t\n{ \r\t\n\"property21\" \r\t\n: \r\t\nnull \r\t\n, \r\t\n\"property22\" \r\t\n: \r\t\ntrue \r\t\n, \r\t\n\"property23\" \r\t\n: \r\t\nfalse \r\t\n, \r\t\n\"property24\" \r\t\n: \r\t\n-0.0 \r\t\n, \r\t\n\"property25\" \r\t\n: \r\t\n\"string\" \r\t\n} \r\t\n] \r\t\n";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4676,7 +4676,7 @@ static int test_complex_array(void) {
         check(data.value.start == 4);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4687,7 +4687,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4701,7 +4701,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4715,7 +4715,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4729,7 +4729,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4743,7 +4743,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4757,7 +4757,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4768,7 +4768,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4779,7 +4779,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4793,7 +4793,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4807,7 +4807,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4821,7 +4821,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4835,7 +4835,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4849,7 +4849,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4860,16 +4860,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[[null,true,false,-0.0,\"string\"],{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}]";
+        const uint8_t json[] = "[[null,true,false,-0.0,\"string\"],{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"}]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4879,7 +4879,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4892,7 +4892,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4906,7 +4906,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4920,7 +4920,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4934,7 +4934,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4948,7 +4948,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4962,7 +4962,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -4973,7 +4973,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4984,7 +4984,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -4998,7 +4998,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5012,7 +5012,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5026,7 +5026,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5040,7 +5040,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5054,7 +5054,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -5065,16 +5065,16 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);
     }
     {
         reset_json_data(&data);
-        const char json[] = "[{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},[null,true,false,-0.0,\"string\"]]";
+        const uint8_t json[] = "[{\"property11\":null,\"property12\":true,\"property13\":false,\"property14\":-0.0,\"property15\":\"string\"},[null,true,false,-0.0,\"string\"]]";
 
-        int result = parse_json(json, strlen(json), &data);
+        int result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -5084,7 +5084,7 @@ static int test_complex_array(void) {
         check(data.value.start == 0);
         check(data.item_counter[0] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5095,7 +5095,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5109,7 +5109,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 1);
         
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5123,7 +5123,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5137,7 +5137,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5151,7 +5151,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5165,7 +5165,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -5176,7 +5176,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 1);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5189,7 +5189,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 0);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5203,7 +5203,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 1);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5217,7 +5217,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 2);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5231,7 +5231,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 3);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5245,7 +5245,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 4);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 1);
@@ -5259,7 +5259,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_ITEM);
         check(data.depth == 0);
@@ -5272,7 +5272,7 @@ static int test_complex_array(void) {
         check(data.item_counter[0] == 2);
         check(data.item_counter[1] == 5);
 
-        result = parse_json(json, strlen(json), &data);
+        result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_VALID);
         check(data.item_counter[0] == 2);

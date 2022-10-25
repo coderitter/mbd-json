@@ -56,6 +56,6 @@ typedef struct json_data {
 } json_data_t;
 
 void reset_json_data(json_data_t* data);
-json_parse_result_t parse_json(const char* bytes, const uint16_t size, json_data_t* data);
+json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_data_t* data);
 
 #endif
