@@ -1,5 +1,9 @@
-#ifndef KNIGHT_JSON_H
-#define KNIGHT_JSON_H
+#ifndef MBD_JSON_H
+#define MBD_JSON_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -57,5 +61,9 @@ typedef struct json_data {
 
 void reset_json_data(json_data_t* data);
 json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_data_t* data);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
