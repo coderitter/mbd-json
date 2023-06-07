@@ -1,2 +1,10 @@
-build
-test/build
+[Bb]uild/
+[Ii]nstall/
+/*build*
+/*install*
+test/[Bb]uild
+*Debug*
+*Release*
+*.idea*
+*.vs*
+*.DS_Store
