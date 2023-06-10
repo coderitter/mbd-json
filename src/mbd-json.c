@@ -6,19 +6,19 @@ void reset_json_data(json_data_t* data) {
     data->parsing[0] = JSON_OBJECT_OR_ARRAY_BEFORE;
 }
 
-json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_data_t* data) {
+json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_data_t* data) {
     uint8_t c;
     uint8_t number_dot_appeared = 0;
 
     for (; data->pos < size; data->pos++) {
-        c = bytes[data->pos];
+        c = json[data->pos];
 
         if ((data->parsing[data->depth] == JSON_OBJECT_OR_ARRAY_BEFORE || data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) && c == '{') {
             if (data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) {
                 data->item_counter[data->depth]++;
                 data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                 data->depth++;
-  
+
                 if (data->depth > data->max_depth) {
                     return JSON_RESULT_TOO_DEEP;
                 }
@@ -31,7 +31,7 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
             data->item_counter[data->depth] = 0;
             data->pos++;
 
-            return JSON_RESULT_ITEM;
+            return JSON_RESULT_VALUE;
         }
 
         if ((data->parsing[data->depth] == JSON_OBJECT_PROPERTY_BEFORE || data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_OBJECT_VALUE_NUMBER || data->parsing[data->depth] == JSON_OBJECT_VALUE_AFTER) && c == '}') {
@@ -39,11 +39,11 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
                 data->value.end = data->pos - 1;
                 data->type = JSON_NUMBER;
                 data->parsing[data->depth] = JSON_OBJECT_VALUE_AFTER;
-                return JSON_RESULT_ITEM;
+                return JSON_RESULT_VALUE;
             }
 
             if (data->depth == 0) {
-                return JSON_RESULT_VALID;
+                return JSON_RESULT_FINISH;
             }
 
             data->type = JSON_OBJECT_END;
@@ -51,7 +51,7 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
             data->depth--;
             data->pos++;
 
-            return JSON_RESULT_ITEM;
+            return JSON_RESULT_VALUE;
         }
 
         if ((data->parsing[data->depth] == JSON_OBJECT_OR_ARRAY_BEFORE || data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) && c == '[') {
@@ -74,7 +74,7 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
             data->item_counter[data->depth] = 0;
             data->pos++;
 
-            return JSON_RESULT_ITEM;
+            return JSON_RESULT_VALUE;
         }
 
         if ((data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_NUMBER || data->parsing[data->depth] == JSON_ARRAY_VALUE_AFTER) && c == ']') {
@@ -82,26 +82,26 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
                 data->value.end = data->pos - 1;
                 data->type = JSON_NUMBER;
                 data->parsing[data->depth] = JSON_ARRAY_VALUE_AFTER;
-                return JSON_RESULT_ITEM;
+                return JSON_RESULT_VALUE;
             }
 
             if (data->depth == 0) {
-                return JSON_RESULT_VALID;
+                return JSON_RESULT_FINISH;
             }
 
             data->type = JSON_ARRAY_END;
             data->value.end = data->pos;
             data->depth--;
             data->pos++;
-            
-            return JSON_RESULT_ITEM;
+
+            return JSON_RESULT_VALUE;
         }
 
-        if ((data->parsing[data->depth] == JSON_OBJECT_OR_ARRAY_BEFORE || 
-            data->parsing[data->depth] == JSON_OBJECT_PROPERTY_BEFORE || 
-            data->parsing[data->depth] == JSON_OBJECT_PROPERTY_AFTER || 
-            data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || 
-            data->parsing[data->depth] == JSON_OBJECT_VALUE_NUMBER || 
+        if ((data->parsing[data->depth] == JSON_OBJECT_OR_ARRAY_BEFORE ||
+            data->parsing[data->depth] == JSON_OBJECT_PROPERTY_BEFORE ||
+            data->parsing[data->depth] == JSON_OBJECT_PROPERTY_AFTER ||
+            data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ||
+            data->parsing[data->depth] == JSON_OBJECT_VALUE_NUMBER ||
             data->parsing[data->depth] == JSON_OBJECT_VALUE_AFTER ||
             data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE ||
             data->parsing[data->depth] == JSON_ARRAY_VALUE_NUMBER ||
@@ -113,7 +113,7 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
                 data->value.end = data->pos - 1;
                 data->type = JSON_NUMBER;
                 data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_NUMBER ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
-                return JSON_RESULT_ITEM;
+                return JSON_RESULT_VALUE;
             }
 
             continue;
@@ -148,42 +148,42 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
 
             if (c == 't') {
                 if (data->pos + 3 < size) {
-                    if (bytes[data->pos + 1] == 'r' && bytes[data->pos + 2] == 'u' && bytes[data->pos + 3] == 'e') {
+                    if (json[data->pos + 1] == 'r' && json[data->pos + 2] == 'u' && json[data->pos + 3] == 'e') {
                         data->value.start = data->pos;
                         data->value.end = data->pos + 3;
                         data->type = JSON_BOOLEAN;
                         data->item_counter[data->depth]++;
                         data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                         data->pos += 4;
-                        return JSON_RESULT_ITEM;
+                        return JSON_RESULT_VALUE;
                     }
                 }
             }
 
             else if (c == 'f') {
                 if (data->pos + 4 < size) {
-                    if (bytes[data->pos + 1] == 'a' && bytes[data->pos + 2] == 'l' && bytes[data->pos + 3] == 's' && bytes[data->pos + 4] == 'e') {
+                    if (json[data->pos + 1] == 'a' && json[data->pos + 2] == 'l' && json[data->pos + 3] == 's' && json[data->pos + 4] == 'e') {
                         data->value.start = data->pos;
                         data->value.end = data->pos + 4;
                         data->type = JSON_BOOLEAN;
                         data->item_counter[data->depth]++;
                         data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                         data->pos += 5;
-                        return JSON_RESULT_ITEM;
+                        return JSON_RESULT_VALUE;
                     }
                 }
             }
 
             else if (c == 'n') {
                 if (data->pos + 3 < size) {
-                    if (bytes[data->pos + 1] == 'u' && bytes[data->pos + 2] == 'l' && bytes[data->pos + 3] == 'l') {
+                    if (json[data->pos + 1] == 'u' && json[data->pos + 2] == 'l' && json[data->pos + 3] == 'l') {
                         data->value.start = data->pos;
                         data->value.end = data->pos + 3;
                         data->type = JSON_NULL;
                         data->item_counter[data->depth]++;
                         data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                         data->pos += 4;
-                        return JSON_RESULT_ITEM;
+                        return JSON_RESULT_VALUE;
                     }
                 }
             }
@@ -194,14 +194,14 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
             data->type = JSON_STRING;
             data->pos++;
             data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_STRING ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
-            return JSON_RESULT_ITEM;
+            return JSON_RESULT_VALUE;
         }
 
         if (data->parsing[data->depth] == JSON_OBJECT_PROPERTY || data->parsing[data->depth] == JSON_OBJECT_VALUE_STRING || data->parsing[data->depth] == JSON_ARRAY_VALUE_STRING) {
             if (c == '\\') {
                 if (data->pos + 1 < size) {
                     data->pos++;
-                    c = bytes[data->pos];
+                    c = json[data->pos];
 
                     switch (c) {
                         case '\"': case '/': case '\\': case 'b': case 'f': case 'r': case 'n': case 't': continue;
@@ -212,7 +212,7 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
                             uint16_t posPlus4 = data->pos + 4;
 
                             for (; data->pos <= posPlus4; data->pos++) {
-                                c = bytes[data->pos];
+                                c = json[data->pos];
 
                                 if  (! ((c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102))) {
                                     return JSON_RESULT_INVALID;
@@ -250,7 +250,7 @@ json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_d
                 data->value.end = data->pos - 1;
                 data->type = JSON_NUMBER;
                 data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_NUMBER ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
-                return JSON_RESULT_ITEM;
+                return JSON_RESULT_VALUE;
             }
 
             data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_AFTER ? JSON_OBJECT_PROPERTY_BEFORE : JSON_ARRAY_VALUE_BEFORE;
