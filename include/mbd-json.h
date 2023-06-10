@@ -56,7 +56,7 @@ typedef struct json_data {
     json_start_end_t *path;
     json_start_end_t value;
     json_type_t type;
-    uint8_t *item_counter;
+    uint8_t *value_counter;
 } json_data_t;
 
 int compare(const char* string, const uint8_t* json, const uint16_t start, const uint16_t end);

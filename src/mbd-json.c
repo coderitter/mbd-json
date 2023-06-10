@@ -15,7 +15,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
 
         if ((data->parsing[data->depth] == JSON_OBJECT_OR_ARRAY_BEFORE || data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) && c == '{') {
             if (data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) {
-                data->item_counter[data->depth]++;
+                data->value_counter[data->depth]++;
                 data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                 data->depth++;
 
@@ -28,7 +28,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
             data->value.start = data->pos;
             data->value.end = 0;
             data->type = JSON_OBJECT_START;
-            data->item_counter[data->depth] = 0;
+            data->value_counter[data->depth] = 0;
             data->pos++;
 
             return JSON_RESULT_VALUE;
@@ -56,7 +56,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
 
         if ((data->parsing[data->depth] == JSON_OBJECT_OR_ARRAY_BEFORE || data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) && c == '[') {
             if (data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE || data->parsing[data->depth] == JSON_ARRAY_VALUE_BEFORE) {
-                data->item_counter[data->depth]++;
+                data->value_counter[data->depth]++;
                 data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                 data->depth++;
 
@@ -71,7 +71,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
             data->value.start = data->pos;
             data->value.end = 0;
             data->type = JSON_ARRAY_START;
-            data->item_counter[data->depth] = 0;
+            data->value_counter[data->depth] = 0;
             data->pos++;
 
             return JSON_RESULT_VALUE;
@@ -135,13 +135,13 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
             switch (c) {
                 case '\"':
                     data->value.start = data->pos;
-                    data->item_counter[data->depth]++;
+                    data->value_counter[data->depth]++;
                     data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_STRING : JSON_ARRAY_VALUE_STRING;
                     continue;
 
                 case '-': case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
                     data->value.start = data->pos;
-                    data->item_counter[data->depth]++;
+                    data->value_counter[data->depth]++;
                     data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_NUMBER : JSON_ARRAY_VALUE_NUMBER;
                     continue;
             }
@@ -152,7 +152,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
                         data->value.start = data->pos;
                         data->value.end = data->pos + 3;
                         data->type = JSON_BOOLEAN;
-                        data->item_counter[data->depth]++;
+                        data->value_counter[data->depth]++;
                         data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                         data->pos += 4;
                         return JSON_RESULT_VALUE;
@@ -166,7 +166,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
                         data->value.start = data->pos;
                         data->value.end = data->pos + 4;
                         data->type = JSON_BOOLEAN;
-                        data->item_counter[data->depth]++;
+                        data->value_counter[data->depth]++;
                         data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                         data->pos += 5;
                         return JSON_RESULT_VALUE;
@@ -180,7 +180,7 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
                         data->value.start = data->pos;
                         data->value.end = data->pos + 3;
                         data->type = JSON_NULL;
-                        data->item_counter[data->depth]++;
+                        data->value_counter[data->depth]++;
                         data->parsing[data->depth] = data->parsing[data->depth] == JSON_OBJECT_VALUE_BEFORE ? JSON_OBJECT_VALUE_AFTER : JSON_ARRAY_VALUE_AFTER;
                         data->pos += 4;
                         return JSON_RESULT_VALUE;

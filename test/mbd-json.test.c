@@ -49,8 +49,8 @@ static int test_primitive_object(void) {
     json_start_end_t path[5];
     data.path = path;
 
-    uint8_t item_counter[5];
-    data.item_counter = item_counter;
+    uint8_t value_counter[5];
+    data.value_counter = value_counter;
 
     {
         reset_json_data(&data);
@@ -61,13 +61,13 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
         check(data.depth == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
     }
     {
         reset_json_data(&data);
@@ -78,13 +78,13 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
         check(data.depth == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
     }
     {
         reset_json_data(&data);
@@ -96,7 +96,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -107,12 +107,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 13);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -124,7 +124,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -135,12 +135,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 29);
         check(data.value.end == 32);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -151,7 +151,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -162,12 +162,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 13);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -179,7 +179,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -190,12 +190,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 29);
         check(data.value.end == 32);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -207,7 +207,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -218,12 +218,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 13);
         check(data.value.end == 17);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -235,7 +235,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -246,12 +246,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 29);
         check(data.value.end == 33);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -263,7 +263,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -274,12 +274,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 13);
         check(data.value.end == 13);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -291,7 +291,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -302,12 +302,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 13);
         check(data.value.end == 15);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -319,7 +319,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -330,12 +330,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 13);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -347,7 +347,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -358,12 +358,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 29);
         check(data.value.end == 32);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -375,7 +375,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -386,12 +386,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 13);
         check(data.value.end == 20);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -403,7 +403,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -414,12 +414,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 29);
         check(data.value.end == 36);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -431,7 +431,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -442,7 +442,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 13);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -453,7 +453,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 30);
         check(data.value.end == 33);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -464,7 +464,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 47);
         check(data.value.end == 51);
-        check(data.item_counter[0] == 3);
+        check(data.value_counter[0] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -475,7 +475,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 65);
         check(data.value.end == 68);
-        check(data.item_counter[0] == 4);
+        check(data.value_counter[0] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -486,12 +486,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 82);
         check(data.value.end == 89);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
     }
     {
         reset_json_data(&data);
@@ -503,7 +503,7 @@ static int test_primitive_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -514,7 +514,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 29);
         check(data.value.end == 32);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -525,7 +525,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 62);
         check(data.value.end == 65);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -536,7 +536,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 95);
         check(data.value.end == 99);
-        check(data.item_counter[0] == 3);
+        check(data.value_counter[0] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -547,7 +547,7 @@ static int test_primitive_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 129);
         check(data.value.end == 132);
-        check(data.item_counter[0] == 4);
+        check(data.value_counter[0] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -558,12 +558,12 @@ static int test_primitive_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 162);
         check(data.value.end == 169);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
     }
 
     return 0;
@@ -580,8 +580,8 @@ static int test_primitive_array(void) {
     json_start_end_t path[5];
     data.path = path;
 
-    uint8_t item_counter[5];
-    data.item_counter = item_counter;
+    uint8_t value_counter[5];
+    data.value_counter = value_counter;
 
     {
         reset_json_data(&data);
@@ -595,13 +595,13 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
         check(data.depth == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
     }
     {
         reset_json_data(&data);
@@ -615,13 +615,13 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
         check(data.depth == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
     }
     {
         reset_json_data(&data);
@@ -635,7 +635,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -646,12 +646,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 1);
         check(data.value.end == 4);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -665,7 +665,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -676,12 +676,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 9);
         check(data.value.end == 12);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -695,7 +695,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -706,12 +706,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 1);
         check(data.value.end == 4);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -725,7 +725,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -736,12 +736,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 9);
         check(data.value.end == 12);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -755,7 +755,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -766,12 +766,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 1);
         check(data.value.end == 5);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -785,7 +785,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -796,12 +796,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 9);
         check(data.value.end == 13);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -815,7 +815,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -826,12 +826,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 1);
         check(data.value.end == 4);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -845,7 +845,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -856,12 +856,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 9);
         check(data.value.end == 12);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -875,7 +875,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -886,12 +886,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 1);
         check(data.value.end == 8);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -905,7 +905,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -916,12 +916,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 9);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -935,7 +935,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -946,7 +946,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 1);
         check(data.value.end == 4);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -957,7 +957,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 6);
         check(data.value.end == 9);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -968,7 +968,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 11);
         check(data.value.end == 15);
-        check(data.item_counter[0] == 3);
+        check(data.value_counter[0] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -979,7 +979,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 17);
         check(data.value.end == 20);
-        check(data.item_counter[0] == 4);
+        check(data.value_counter[0] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -990,7 +990,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 22);
         check(data.value.end == 29);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1008,7 +1008,7 @@ static int test_primitive_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4 );
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1019,7 +1019,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 9);
         check(data.value.end == 12);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1030,7 +1030,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 22);
         check(data.value.end == 25);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1041,7 +1041,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 35);
         check(data.value.end == 39);
-        check(data.item_counter[0] == 3);
+        check(data.value_counter[0] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1052,7 +1052,7 @@ static int test_primitive_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 49);
         check(data.value.end == 52);
-        check(data.item_counter[0] == 4);
+        check(data.value_counter[0] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1063,12 +1063,12 @@ static int test_primitive_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 62);
         check(data.value.end == 69);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 5);
+        check(data.value_counter[0] == 5);
     }
 
     return 0;
@@ -1085,8 +1085,8 @@ static int test_complex_object(void) {
     json_start_end_t path[5];
     data.path = path;
 
-    uint8_t item_counter[5];
-    data.item_counter = item_counter;
+    uint8_t value_counter[5];
+    data.value_counter = value_counter;
 
     {
         reset_json_data(&data);
@@ -1098,7 +1098,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1108,8 +1108,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1119,13 +1119,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -1137,7 +1137,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1147,8 +1147,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1158,13 +1158,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 34);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -1176,7 +1176,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1186,8 +1186,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1200,8 +1200,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 27);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1214,8 +1214,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 45);
         check(data.value.end == 48);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1228,8 +1228,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 63);
         check(data.value.end == 67);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1242,8 +1242,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 82);
         check(data.value.end == 85);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1256,8 +1256,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 100);
         check(data.value.end == 107);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1267,13 +1267,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 108);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -1285,7 +1285,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1295,8 +1295,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1309,8 +1309,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 55);
         check(data.value.end == 58);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1323,8 +1323,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 89);
         check(data.value.end == 92);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1337,8 +1337,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 123);
         check(data.value.end == 127);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1351,8 +1351,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 158);
         check(data.value.end == 161);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1365,8 +1365,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 192);
         check(data.value.end == 199);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1376,13 +1376,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 204);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -1394,7 +1394,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1404,8 +1404,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1415,8 +1415,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1426,8 +1426,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 26);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 28);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1437,13 +1437,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 26);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 29);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -1455,7 +1455,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1465,8 +1465,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1476,8 +1476,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 34);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1487,8 +1487,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 54);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 64);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1498,13 +1498,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 54);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 69);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -1516,7 +1516,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1526,8 +1526,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1540,8 +1540,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 27);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1554,8 +1554,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 45);
         check(data.value.end == 48);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1568,8 +1568,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 63);
         check(data.value.end == 67);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1582,8 +1582,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 82);
         check(data.value.end == 85);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1596,8 +1596,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 100);
         check(data.value.end == 107);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1607,8 +1607,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 108);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1618,8 +1618,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 120);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 122);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1632,8 +1632,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 136);
         check(data.value.end == 139);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1646,8 +1646,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 154);
         check(data.value.end == 157);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1660,8 +1660,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 172);
         check(data.value.end == 176);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1674,8 +1674,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 191);
         check(data.value.end == 194);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1688,8 +1688,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 209);
         check(data.value.end == 216);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1699,13 +1699,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 120);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 217);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -1717,7 +1717,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1727,8 +1727,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1741,8 +1741,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 55);
         check(data.value.end == 58);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1755,8 +1755,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 89);
         check(data.value.end == 92);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1769,8 +1769,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 123);
         check(data.value.end == 127);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1783,8 +1783,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 158);
         check(data.value.end == 161);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1797,8 +1797,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 192);
         check(data.value.end == 199);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1808,8 +1808,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 204);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1819,8 +1819,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 220);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 230);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1833,8 +1833,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 256);
         check(data.value.end == 259);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1847,8 +1847,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 290);
         check(data.value.end == 293);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1861,8 +1861,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 324);
         check(data.value.end == 328);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1875,8 +1875,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 359);
         check(data.value.end == 362);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1889,8 +1889,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 393);
         check(data.value.end == 400);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1900,13 +1900,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 220);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 405);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -1918,7 +1918,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1928,8 +1928,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1941,13 +1941,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -1959,7 +1959,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1969,8 +1969,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 19);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -1982,13 +1982,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 34);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -2000,7 +2000,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2012,8 +2012,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2026,8 +2026,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 14);
         check(data.value.end == 17);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2040,8 +2040,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 19);
         check(data.value.end == 22);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2054,8 +2054,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 24);
         check(data.value.end == 28);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2068,8 +2068,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 30);
         check(data.value.end == 33);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2082,8 +2082,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 35);
         check(data.value.end == 42);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2095,13 +2095,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 43);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -2113,7 +2113,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2125,8 +2125,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2139,8 +2139,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 34);
         check(data.value.end == 37);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2153,8 +2153,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 47);
         check(data.value.end == 50);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2167,8 +2167,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 60);
         check(data.value.end == 64);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2181,8 +2181,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 74);
         check(data.value.end == 77);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2195,8 +2195,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 87);
         check(data.value.end == 94);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2208,13 +2208,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 99);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -2226,7 +2226,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2238,8 +2238,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2251,8 +2251,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2264,8 +2264,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 28);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 28);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2277,13 +2277,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 28);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 29);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -2295,7 +2295,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2307,8 +2307,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2320,8 +2320,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 34);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2333,8 +2333,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 64);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 64);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2346,13 +2346,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 64);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 69);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -2364,7 +2364,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2376,8 +2376,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2390,8 +2390,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 14);
         check(data.value.end == 17);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2404,8 +2404,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 19);
         check(data.value.end == 22);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2418,8 +2418,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 24);
         check(data.value.end == 28);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2432,8 +2432,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 30);
         check(data.value.end == 33);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2446,8 +2446,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 35);
         check(data.value.end == 42);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2459,8 +2459,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 43);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2472,8 +2472,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 57);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 57);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2486,8 +2486,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 58);
         check(data.value.end == 61);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2500,8 +2500,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 63);
         check(data.value.end == 66);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2514,8 +2514,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 68);
         check(data.value.end == 72);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2528,8 +2528,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 74);
         check(data.value.end == 77);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2542,8 +2542,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 79);
         check(data.value.end == 86);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2555,13 +2555,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 57);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 87);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -2573,7 +2573,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2585,8 +2585,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 29);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2599,8 +2599,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 34);
         check(data.value.end == 37);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2613,8 +2613,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 47);
         check(data.value.end == 50);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2627,8 +2627,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 60);
         check(data.value.end == 64);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2641,8 +2641,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 74);
         check(data.value.end == 77);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2655,8 +2655,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 87);
         check(data.value.end == 94);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2668,8 +2668,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 29);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 99);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2681,8 +2681,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 129);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 129);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2695,8 +2695,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 134);
         check(data.value.end == 137);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2709,8 +2709,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 147);
         check(data.value.end == 150);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2723,8 +2723,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 160);
         check(data.value.end == 164);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2737,8 +2737,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 174);
         check(data.value.end == 177);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2751,8 +2751,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 187);
         check(data.value.end == 194);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2764,13 +2764,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 129);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 199);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -2782,7 +2782,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2792,8 +2792,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2805,8 +2805,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 27);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2818,8 +2818,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 45);
         check(data.value.end == 48);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2831,8 +2831,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 63);
         check(data.value.end == 67);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2844,8 +2844,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 82);
         check(data.value.end == 85);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2857,8 +2857,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 100);
         check(data.value.end == 107);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2868,8 +2868,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 11);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 108);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2881,8 +2881,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 122);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 122);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2894,8 +2894,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 123);
         check(data.value.end == 126);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2907,8 +2907,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 128);
         check(data.value.end == 131);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2920,8 +2920,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 133);
         check(data.value.end == 137);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2933,8 +2933,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 139);
         check(data.value.end == 142);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2946,8 +2946,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 144);
         check(data.value.end == 151);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2959,13 +2959,13 @@ static int test_complex_object(void) {
         check(data.path[1].end == 122);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 152);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -2977,7 +2977,7 @@ static int test_complex_object(void) {
         check(data.depth == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -2989,8 +2989,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 13);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3002,8 +3002,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 14);
         check(data.value.end == 17);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3015,8 +3015,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 19);
         check(data.value.end == 22);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3028,8 +3028,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 24);
         check(data.value.end == 28);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3041,8 +3041,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 30);
         check(data.value.end == 33);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3054,8 +3054,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 35);
         check(data.value.end == 42);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3067,8 +3067,8 @@ static int test_complex_object(void) {
         check(data.path[1].end == 13);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 43);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3078,8 +3078,8 @@ static int test_complex_object(void) {
         check(data.path[0].end == 55);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 57);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3091,8 +3091,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 71);
         check(data.value.end == 74);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3104,8 +3104,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 89);
         check(data.value.end == 92);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3117,8 +3117,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 107);
         check(data.value.end == 111);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3130,8 +3130,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 126);
         check(data.value.end == 129);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3143,8 +3143,8 @@ static int test_complex_object(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 144);
         check(data.value.end == 151);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3154,13 +3154,13 @@ static int test_complex_object(void) {
         check(data.path[0].end == 55);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 152);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
 
     return 0;
@@ -3177,8 +3177,8 @@ static int test_complex_array(void) {
     json_start_end_t path[5];
     data.path = path;
 
-    uint8_t item_counter[5];
-    data.item_counter = item_counter;
+    uint8_t value_counter[5];
+    data.value_counter = value_counter;
 
     {
         reset_json_data(&data);
@@ -3192,7 +3192,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3204,8 +3204,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 1);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3215,12 +3215,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 2);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -3234,7 +3234,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3246,8 +3246,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 9);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3257,13 +3257,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -3277,7 +3277,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3289,8 +3289,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 1);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3303,8 +3303,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 2);
         check(data.value.end == 5);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3317,8 +3317,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 7);
         check(data.value.end == 10);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3331,8 +3331,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 12);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3345,8 +3345,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 18);
         check(data.value.end == 21);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3359,8 +3359,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 23);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3370,13 +3370,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 31);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -3390,7 +3390,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3402,8 +3402,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 9);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3416,8 +3416,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 14);
         check(data.value.end == 17);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3430,8 +3430,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 27);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3444,8 +3444,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 40);
         check(data.value.end == 44);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3458,8 +3458,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 54);
         check(data.value.end == 57);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3472,8 +3472,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 67);
         check(data.value.end == 74);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3483,13 +3483,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 79);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -3503,7 +3503,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3515,8 +3515,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 1);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3526,7 +3526,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 2);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3538,8 +3538,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3549,12 +3549,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 5);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -3568,7 +3568,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3580,8 +3580,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 9);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3591,7 +3591,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3603,8 +3603,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 24);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 24);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3614,12 +3614,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 29);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -3633,7 +3633,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3645,8 +3645,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 1);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3659,8 +3659,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 2);
         check(data.value.end == 5);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3673,8 +3673,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 7);
         check(data.value.end == 10);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3687,8 +3687,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 12);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3701,8 +3701,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 18);
         check(data.value.end == 21);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3715,8 +3715,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 23);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3726,8 +3726,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 31);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3739,8 +3739,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 33);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 33);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3753,8 +3753,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 34);
         check(data.value.end == 37);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3767,8 +3767,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 39);
         check(data.value.end == 42);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3781,8 +3781,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 44);
         check(data.value.end == 48);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3795,8 +3795,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 50);
         check(data.value.end == 53);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3809,8 +3809,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 55);
         check(data.value.end == 62);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3820,13 +3820,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 63);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -3840,7 +3840,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3852,8 +3852,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 9);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3866,8 +3866,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 14);
         check(data.value.end == 17);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3880,8 +3880,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 27);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3894,8 +3894,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 40);
         check(data.value.end == 44);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3908,8 +3908,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 54);
         check(data.value.end == 57);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3922,8 +3922,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 67);
         check(data.value.end == 74);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3933,8 +3933,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 79);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3946,8 +3946,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 89);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 89);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3960,8 +3960,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 94);
         check(data.value.end == 97);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3974,8 +3974,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 107);
         check(data.value.end == 110);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -3988,8 +3988,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 120);
         check(data.value.end == 124);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4002,8 +4002,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 134);
         check(data.value.end == 137);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4016,8 +4016,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 147);
         check(data.value.end == 154);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4027,13 +4027,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 159);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -4047,7 +4047,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4057,8 +4057,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4068,12 +4068,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 2);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -4087,7 +4087,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4097,8 +4097,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4108,12 +4108,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -4127,7 +4127,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4137,8 +4137,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4151,8 +4151,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 15);
         check(data.value.end == 18);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4165,8 +4165,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 33);
         check(data.value.end == 36);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4179,8 +4179,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 51);
         check(data.value.end == 55);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4193,8 +4193,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 70);
         check(data.value.end == 73);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4207,8 +4207,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 88);
         check(data.value.end == 95);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4218,13 +4218,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 96);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -4238,7 +4238,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4248,8 +4248,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4262,8 +4262,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 35);
         check(data.value.end == 38);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4276,8 +4276,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 69);
         check(data.value.end == 72);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4290,8 +4290,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 103);
         check(data.value.end == 107);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4304,8 +4304,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 138);
         check(data.value.end == 141);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4318,8 +4318,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 172);
         check(data.value.end == 179);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4329,13 +4329,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 184);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
     }
     {
         reset_json_data(&data);
@@ -4349,7 +4349,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4359,8 +4359,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4370,7 +4370,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 2);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4380,8 +4380,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4391,12 +4391,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 5);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -4410,7 +4410,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4420,8 +4420,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4431,7 +4431,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 14);
-        check(data.item_counter[0] == 1);
+        check(data.value_counter[0] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4441,8 +4441,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 24);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4452,12 +4452,12 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 29);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -4471,7 +4471,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4481,8 +4481,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4495,8 +4495,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 15);
         check(data.value.end == 18);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4509,8 +4509,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 33);
         check(data.value.end == 36);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4523,8 +4523,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 51);
         check(data.value.end == 55);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4537,8 +4537,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 70);
         check(data.value.end == 73);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4551,8 +4551,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 88);
         check(data.value.end == 95);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4562,8 +4562,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 96);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4573,8 +4573,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 98);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4587,8 +4587,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 112);
         check(data.value.end == 115);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4601,8 +4601,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 130);
         check(data.value.end == 133);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4615,8 +4615,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 148);
         check(data.value.end == 152);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4629,8 +4629,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 167);
         check(data.value.end == 170);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4643,8 +4643,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 185);
         check(data.value.end == 192);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4654,13 +4654,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 193);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -4674,7 +4674,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 4);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4684,8 +4684,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 9);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4698,8 +4698,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 35);
         check(data.value.end == 38);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4712,8 +4712,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 69);
         check(data.value.end == 72);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4726,8 +4726,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 103);
         check(data.value.end == 107);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4740,8 +4740,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 138);
         check(data.value.end == 141);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4754,8 +4754,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 172);
         check(data.value.end == 179);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4765,8 +4765,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 184);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4776,8 +4776,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 194);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4790,8 +4790,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 220);
         check(data.value.end == 223);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4804,8 +4804,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 254);
         check(data.value.end == 257);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4818,8 +4818,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 288);
         check(data.value.end == 292);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4832,8 +4832,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 323);
         check(data.value.end == 326);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4846,8 +4846,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 357);
         check(data.value.end == 364);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4857,13 +4857,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 4);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 369);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -4877,7 +4877,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4889,8 +4889,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 1);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4903,8 +4903,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 2);
         check(data.value.end == 5);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4917,8 +4917,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 7);
         check(data.value.end == 10);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4931,8 +4931,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 12);
         check(data.value.end == 16);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4945,8 +4945,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 18);
         check(data.value.end == 21);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4959,8 +4959,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 23);
         check(data.value.end == 30);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4970,8 +4970,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 31);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4981,8 +4981,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 33);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -4995,8 +4995,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 47);
         check(data.value.end == 50);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5009,8 +5009,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 65);
         check(data.value.end == 68);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5023,8 +5023,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 83);
         check(data.value.end == 87);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5037,8 +5037,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 102);
         check(data.value.end == 105);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5051,8 +5051,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 120);
         check(data.value.end == 127);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5062,13 +5062,13 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 128);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
     {
         reset_json_data(&data);
@@ -5082,7 +5082,7 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 0);
-        check(data.item_counter[0] == 0);
+        check(data.value_counter[0] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5092,8 +5092,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_START);
         check(data.value.start == 1);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5106,8 +5106,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 15);
         check(data.value.end == 18);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5120,8 +5120,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 33);
         check(data.value.end == 36);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5134,8 +5134,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 51);
         check(data.value.end == 55);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5148,8 +5148,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 70);
         check(data.value.end == 73);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5162,8 +5162,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 88);
         check(data.value.end == 95);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5173,8 +5173,8 @@ static int test_complex_array(void) {
         check(data.path[0].end == 0);
         check(data.type == JSON_OBJECT_END);
         check(data.value.end == 96);
-        check(data.item_counter[0] == 1);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 1);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5186,8 +5186,8 @@ static int test_complex_array(void) {
         check(data.path[1].end == 98);
         check(data.type == JSON_ARRAY_START);
         check(data.value.start == 98);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 0);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 0);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5200,8 +5200,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NULL);
         check(data.value.start == 99);
         check(data.value.end == 102);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 1);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 1);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5214,8 +5214,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 104);
         check(data.value.end == 107);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 2);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 2);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5228,8 +5228,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_BOOLEAN);
         check(data.value.start == 109);
         check(data.value.end == 113);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 3);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 3);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5242,8 +5242,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_NUMBER);
         check(data.value.start == 115);
         check(data.value.end == 118);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 4);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 4);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5256,8 +5256,8 @@ static int test_complex_array(void) {
         check(data.type == JSON_STRING);
         check(data.value.start == 120);
         check(data.value.end == 127);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
@@ -5269,13 +5269,13 @@ static int test_complex_array(void) {
         check(data.path[1].end == 98);
         check(data.type == JSON_ARRAY_END);
         check(data.value.end == 128);
-        check(data.item_counter[0] == 2);
-        check(data.item_counter[1] == 5);
+        check(data.value_counter[0] == 2);
+        check(data.value_counter[1] == 5);
 
         result = parse_json(json, sizeof(json), &data);
 
         check(result == JSON_RESULT_FINISH);
-        check(data.item_counter[0] == 2);
+        check(data.value_counter[0] == 2);
     }
 
     return 0;

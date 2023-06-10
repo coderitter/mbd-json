@@ -18,8 +18,8 @@ int main() {
     json_start_end_t path[5];
     data.path = path;
 
-    uint8_t item_counter[5];
-    data.item_counter = item_counter;
+    uint8_t value_counter[5];
+    data.value_counter = value_counter;
 
     reset_json_data(&data);
 
@@ -68,8 +68,8 @@ data.parsing = parsing;
 json_start_end_t path[5];
 data.path = path;
 
-uint8_t item_counter[5];
-data.item_counter = item_counter;
+uint8_t value_counter[5];
+data.value_counter = value_counter;
 
 // Set the correct starting values
 reset_json_data(&data);
@@ -84,7 +84,7 @@ Here is a complete overview of the struct fields.
 - `json_start_end_t *path`: Any array where each value represents the information for one nesting depth. It contains the path to the current JSON value. A path consists of positions of JSON array opening brackets `[` and positions of JSON property names inside the given JSON string.
 - `json_start_end_t value`: The position of the current JSON property value inside the given JSON string.
 - `json_type_t type`: The type of the current JSON value.
-- `uint8_t *item_counter`: Any array where each value represents the information for one nesting depth. When related to a JSON array it contains the amount of JSON array items which were found so far. When related to a JSON object it contains the amount of JSON properties which were found so far.
+- `uint8_t *value_counter`: Any array where each value represents the information for one nesting depth. When related to a JSON array it contains the amount of JSON array items which were found so far. When related to a JSON object it contains the amount of JSON properties which were found so far.
 
 ## The parsing
 
