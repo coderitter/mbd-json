@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 string(TIMESTAMP BUILD_DATE "%Y-%m-%d")
   
-project(mbd-json    LANGUAGES C
-                    VERSION 1.0)
+project(mbd-json   LANGUAGES C
+                            VERSION 1.0)
 set(ProjectTargets)
 set(TargetsPath)
 
@@ -25,11 +25,11 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set(HEADERS
         ${CMAKE_CURRENT_LIST_DIR}/include/mbd-json.h
-	)
+    )
 
 set(SOURCES
-		${CMAKE_CURRENT_LIST_DIR}/src/mbd-json.c
-	)
+        ${CMAKE_CURRENT_LIST_DIR}/src/mbd-json.c
+    )
 
 add_library(${TargetName} ${HEADERS} ${SOURCES})
 
