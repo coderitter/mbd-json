@@ -34,8 +34,8 @@ typedef enum json_parsing {
 } json_parsing_t;
 
 typedef enum json_parse_result {
-    JSON_RESULT_VALID = 0,
-    JSON_RESULT_ITEM,
+    JSON_RESULT_FINISH = 0,
+    JSON_RESULT_VALUE,
     JSON_RESULT_INVALID,
     JSON_RESULT_TOO_DEEP
 } json_parse_result_t;
@@ -50,17 +50,18 @@ typedef struct json_data {
 
     int8_t max_depth;
     int8_t depth;
-    
+
     json_parsing_t* parsing;
 
     json_start_end_t *path;
     json_start_end_t value;
     json_type_t type;
-    uint8_t *item_counter;
+    uint8_t *value_counter;
 } json_data_t;
 
+int compare(const char* string, const uint8_t* json, const uint16_t start, const uint16_t end);
 void reset_json_data(json_data_t* data);
-json_parse_result_t parse_json(const uint8_t* bytes, const uint16_t size, json_data_t* data);
+json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_data_t* data);
 
 #ifdef __cplusplus
 }
