@@ -13,5 +13,21 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
 	gcc $(CPPFLAGS) -c -Iinclude -o $@ $<
 
+libriscv32_mbd_json.a:
+	mkdir -p build
+	riscv32-unknown-elf-gcc -std=c99 -march=$(RISCV_ARCH) -mabi=$(RISCV_ABI) -g -c src/mbd_json.c \
+	-o build/riscv32-mbd_json.o  \
+	-g -Wall \
+	-Iinclude
+	riscv32-unknown-elf-ar rcs build/libriscv32-mbd_json.a build/riscv32-mbd_json.o
+
+libmbd_json.a:
+	mkdir -p build
+	gcc -g -c src/mbd_json.c \
+	-o build/mbd_json.o  \
+	-g -Wall \
+	-Iinclude
+	ar rcs build/libmbd_json.a build/mbd_json.o	
+
 clean:
 	rm -r -f build
