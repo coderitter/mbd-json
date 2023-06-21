@@ -5,9 +5,9 @@ OBJ_DIR := build/obj
 SRC_FILES := $(call rwildcard,$(SRC_DIR),*.c)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-build/mbd-json.lib: $(OBJ_FILES)
+build/mbd_json.lib: $(OBJ_FILES)
 	mkdir -p build/lib
-	ar rvs build/lib/libmbd-json.a $<
+	ar rvs build/lib/libmbd_json.a $<
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)

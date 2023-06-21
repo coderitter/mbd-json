@@ -54,7 +54,7 @@ int main() {
 
 The struct `json_data` (also defined as type `json_data_t`) contains parser configuration settings, internal parser state and the information related to the found value.
 
-Some of its information need to be stored for every nesting level. To do so, arrays are used. Here you need to make a choice. How large should those arrays be? Or what is the maximum nesting depth of your application specific JSON formats? You need to set this value and you need to create the corresponding arrays accordingly. Then call the `reset_json_data` function to set the correct starting values.
+Some of its information need to be stored for every nesting depth. To do so, arrays are used. Here you need to make a choice. How large should those arrays be? Or what is the maximum nesting depth of your application specific JSON formats? You need to set this value and you need to create the corresponding arrays accordingly. Then call the `reset_json_data` function to set the correct starting values.
 
 ```c
 json_data_t data;
@@ -79,7 +79,7 @@ Here is a complete overview of the struct fields.
 
 - `uint16_t pos`: The position in the given JSON string the parser is at.
 - `int8_t max_depth`: The maximum allowed depth of nested JSON objects and arrays.
-- `int8_t depth`: The nesting depth the parser is currently in. A nesting depth level either refers to a JSON object or array.
+- `int8_t depth`: The nesting depth the parser is currently in. A nesting depth either refers to a JSON object or array.
 - `json_parsing_t* parsing`: An array of the size of the maximum allowed nesting depth. It contains information about which JSON token is expected to come next and about which JSON token is being parsed right now. It is needed internally by the parser and not meant to be used by the user of the library.
 - `json_start_end_t *path`: An array of the size of the maximum allowed nesting depth. It contains the path to the current JSON value. A path consists of positions of JSON array opening brackets `[` and positions of JSON property names inside the given JSON string.
 - `json_start_end_t value`: The position of the current JSON property value inside the given JSON string.
@@ -154,11 +154,11 @@ The value of depth is `0`, which means the parser it outside of any JSON code. A
 
 To parse specific JSON properties, you need to know the following things.
 
-1. The nesting level in which the JSON property is to be found
+1. The nesting depth in which the JSON property is to be found
 2. The name of the JSON property
 3. The fact that you are parsing a certain object in which the desired property resides in
 
-As for the nesting level, every nested JSON object or JSON array increase the nesting level number.
+As for the nesting depth, every nested JSON object or JSON array increase the nesting depth number.
 
 ```json
 {
@@ -175,22 +175,22 @@ As for the nesting level, every nested JSON object or JSON array increase the ne
 }
 ```
 
-Property `name` of the root object is in nesting level 1. Property `city` in level 2. The value `Ramon` inside the `friends` array is level 2. The `name` property inside the object in the `friends` array is level 3.
+Property `name` of the root object is depth 0. Property `city` is depth 1. The value `Ramon` inside the `friends` array is depth 1. The `name` property inside the object in the `friends` array is depth 2.
 
-The name of the property can be found in the `path` field of the parser data struct. It contains the property name positions of every level. In the case of the property `name`, it would contain one element with the start and end positions to `"name"` in the JSON string, including the `"` characters. In the case of the property `city`, it would contain two entries. The first one points to the position of `"address"`. The second one pointing to the position of `"city"`.
+The name of the property can be found in the `path` field of the parser data struct. It contains the property name positions for every depth. In the case of the property `name`, it would contain one element with the start and end positions to `"name"` in the JSON string, including the `"` characters. In the case of the property `city`, it would contain two entries. The first one points to the position of `"address"`. The second one pointing to the position of `"city"`.
 
 Now you know how to obtain the needed information. Let us look at some code.
 
 ```c
-if (data.level == 1 && compare("name", json, data.path[0].start + 1, data.path[0].end - 1)) {
-    printf("Property 'name' in level 1 detected!");
+if (data.depth == 0 && compare("name", json, data.path[0].start + 1, data.path[0].end - 1)) {
+    printf("Property 'name' in depth 0 detected!");
 }
 
-if (data.level == 2 &&
-    compare("address", json, data.path[1].start + 1, data.path[1].end - 1) &&
-    compare("city", json, data.path[2].start + 1, data.path[2].end - 1)
+if (data.depth == 1 &&
+    compare("address", json, data.path[0].start + 1, data.path[0].end - 1) &&
+    compare("city", json, data.path[1].start + 1, data.path[1].end - 1)
 ) {
-    printf("Property 'address.city' in level 2 detected!");
+    printf("Property 'address.city' in depth 1 detected!");
 }
 ```
 
@@ -208,24 +208,24 @@ long birth_year;
 bool female;
 title_t title;
 
-if (data.level == 1 && compare("name", json, data.path[0].start + 1, data.path[0].end - 1)) {
+if (data.depth == 0 && compare("name", json, data.path[0].start + 1, data.path[0].end - 1)) {
     if (data.type == JSON_STRING) {
         memcpy(name, json[data.value.start + 1], data.value.end - data.value.start - 1);
         name[data.value.end - data.value.start] = 0;
     }
 }
 
-if (data.level == 1 && compare("birthYear", json, data.path[0].start + 1, data.path[0].end - 1)) {
+if (data.depth == 0 && compare("birthYear", json, data.path[0].start + 1, data.path[0].end - 1)) {
     if (data.type == JSON_NUMBER) {
         long birth_year_long = strtol((char*) &json[data.value.start], data.value.end - data.value.start);
     }
 
-if (data.level == 1 && compare("gender", json, data.path[0].start + 1, data.path[0].end - 1)) {
+if (data.depth == 0 && compare("gender", json, data.path[0].start + 1, data.path[0].end - 1)) {
     if (data.type == JSON_BOOLEAN) {
         female = json[data.value.start] == 't' ? true : false;
     }
 
-if (data.level == 1 && compare("title", json, data.path[0].start + 1, data.path[0].end - 1)) {
+if (data.depth == 0 && compare("title", json, data.path[0].start + 1, data.path[0].end - 1)) {
     if (data.type == JSON_NULL) {
         title = TITLE_NONE;
     }
@@ -235,26 +235,28 @@ if (data.level == 1 && compare("title", json, data.path[0].start + 1, data.path[
 It is also possible to detect the start and end of object and of array values. Beware that only when the parser has detected the end it is able to tell you then end position of the complete object or array value.
 
 ```c
-if (data.level == 1 && compare("address", json, data.path[0].start + 1, data.path[0].end - 1)) {
-    if (data.type == JSON_OBJECT_START) {
+if (compare("address", json, data.path[0].start + 1, data.path[0].end - 1)) {
+    if (data.depth == 1 && data.type == JSON_OBJECT_START)
         // data.value.end == 0 since the end of the object is not known yet!
     }
 
-    if (data.type == JSON_OBJECT_END) {
+    if (data.depth == 0 && data.type == JSON_OBJECT_END) {
         // data.value.end now has the correct value!
     }
 }
 
-if (data.level == 1 && compare("friends", json, data.path[0].start + 1, data.path[0].end - 1)) {
-    if (data.type == JSON_ARRAY_START) {
+if (compare("friends", json, data.path[0].start + 1, data.path[0].end - 1)) {
+    if (data.depth == 1 && data.type == JSON_ARRAY_START) {
         // data.value.end == 0 since the end of the object is not known yet!
     }
 
-    if (data.type == JSON_ARRAY_END) {
+    if (data.depth == 0 && data.type == JSON_ARRAY_END) {
         // data.value.end now has the correct value!
     }
 }
 ```
+
+When you receive `JSON_OBJECT_START` or `JSON_ARRAY_START`, then the value of the `depth` field holds the depth of that found object or array. The other way around, when you receive `JSON_OBJECT_END` or `JSON_ARRAY_END`, the `depth` points to the object or array above.
 
 ### Parse JSON arrays
 
@@ -266,7 +268,7 @@ Let us have a look at an example handling a primitive typed value, in that case 
 char friends[10][31]; // Ten friends each having a name of maximum 30 characters plus one null terminator
 int friend_count = 0;
 
-if (data.level == 2 &&
+if (data.depth == 1 &&
     compare("friends", json, data.path[0].start + 1, data.path[0].end - 1) &&
     json[data.path[1].start] == '['
 ) {
@@ -284,11 +286,11 @@ Here is an example of how to deal with objects inside of arrays.
 char friends[10][31]; // Ten friends each having a name of maximum 30 characters plus one null terminator
 int friend_count = 0;
 
-if (data.level == 2 &&
+if (data.depth == 1 &&
     compare("friends", json, data.path[0].start + 1, data.path[0].end - 1) &&
     json[data.path[1].start] == '['
 ) {
-    if (data.level == 3 &&
+    if (data.depth == 3 &&
         compare("name", json, data.path[2].start + 1, data.path[2].end - 1)
     ) {
         if (data.type == JSON_STRING) {
