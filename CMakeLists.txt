@@ -24,11 +24,11 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set(HEADERS
-        ${CMAKE_CURRENT_LIST_DIR}/include/mbd-json.h
+        ${CMAKE_CURRENT_LIST_DIR}/include/mbd_json.h
     )
 
 set(SOURCES
-        ${CMAKE_CURRENT_LIST_DIR}/src/mbd-json.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/mbd_json.c
     )
 
 add_library(${TargetName} ${HEADERS} ${SOURCES})
