@@ -1,17 +1,30 @@
-rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+CC := gcc
+CFLAGS := -g -Wall -Wextra
 
-SRC_DIR := src
-OBJ_DIR := build/obj
-SRC_FILES := $(call rwildcard,$(SRC_DIR),*.c)
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+SRC := $(wildcard src/*.c)
+INCLUDE := $(wildcard include/*.h)
+TEST := test/mbd_json.test.c
+OBJ := $(SRC:src/%.c=build/obj/%.o)
 
-build/mbd_json.lib: $(OBJ_FILES)
-	mkdir -p build/lib
-	ar rvs build/lib/libmbd_json.a $<
+build/test: $(SRC) $(INCLUDE) $(TEST) build/libmbd-json.a
+	mkdir -p build
+	$(CC) -std=gnu99 $(TEST) -o build/test \
+	$(CFLAGS) \
+	-Iinclude \
+	-lmbd-json -Lbuild \
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(dir $@)
-	gcc $(CPPFLAGS) -c -Iinclude -o $@ $<
+build/libmbd-json.a: $(OBJ)
+	mkdir -p build
+	ar rcs $@ $(OBJ)
 
+build/obj/%.o: src/%.c
+	mkdir -p build/obj
+	$(CC) -c $< -o $@ $(CFLAGS) -Iinclude
+
+.PHONY: clean
 clean:
 	rm -r -f build
+
+.PHONY: clean_libs
+clean_libs:
+	$(MAKE) -C libs/mbd-mqtt-packer  clean
