@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "../include/mbd-json.h"
+#include "mbd_json.h"
 
 #define done() return 0
 
