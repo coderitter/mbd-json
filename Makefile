@@ -29,5 +29,13 @@ libmbd_json.a:
 	-Iinclude
 	ar rcs build/libmbd_json.a build/mbd_json.o	
 
+tests:
+	mkdir -p build
+	gcc test/mbd_json.test.c \
+	-o build/tests \
+	src/mbd_json.c \
+	-g -Wall \
+	-Iinclude	
+
 clean:
 	rm -r -f build
