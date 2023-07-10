@@ -28,7 +28,7 @@ set(HEADERS
     )
 
 set(SOURCES
-        mbd-json.test.c
+        mbd_json.test.c
     )
 
 add_executable(${TargetName} ${HEADERS} ${SOURCES})
