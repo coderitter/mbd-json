@@ -1,41 +1,32 @@
-rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+CC := gcc
+CFLAGS := -g -Wall -Wextra
 
-SRC_DIR := src
-OBJ_DIR := build/obj
-SRC_FILES := $(call rwildcard,$(SRC_DIR),*.c)
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+SRC := $(wildcard src/*.c)
+INCLUDE := $(wildcard include/*.h)
+TEST := test/mbd_json.test.c
+OBJ := $(SRC:src/%.c=build/obj/%.o)
 
-build/mbd_json.lib: $(OBJ_FILES)
-	mkdir -p build/lib
-	ar rvs build/lib/libmbd_json.a $<
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(dir $@)
-	gcc $(CPPFLAGS) -c -Iinclude -o $@ $<
-
-libriscv32_mbd_json.a:
+build/test: $(SRC) $(INCLUDE) $(TEST) build/libmbd-json.a
 	mkdir -p build
-	riscv32-unknown-elf-gcc -std=c99 -march=$(RISCV_ARCH) -mabi=$(RISCV_ABI) -g -c src/mbd_json.c \
-	-o build/riscv32-mbd_json.o  \
-	-g -Wall \
-	-Iinclude
-	riscv32-unknown-elf-ar rcs build/libriscv32-mbd_json.a build/riscv32-mbd_json.o
+	$(CC) -std=gnu99 $(TEST) -o build/test \
+	$(CFLAGS) \
+	-Iinclude \
+	libs/Unity/src/unity.c \
+	-Ilibs/Unity/src \
+	-lmbd-json -Lbuild \
 
-libmbd_json.a:
+build/libmbd-json.a: $(OBJ)
 	mkdir -p build
-	gcc -g -c src/mbd_json.c \
-	-o build/mbd_json.o  \
-	-g -Wall \
-	-Iinclude
-	ar rcs build/libmbd_json.a build/mbd_json.o	
+	ar rcs $@ $(OBJ)
 
-tests:
-	mkdir -p build
-	gcc test/mbd_json.test.c \
-	-o build/tests \
-	src/mbd_json.c \
-	-g -Wall \
-	-Iinclude	
+build/obj/%.o: src/%.c
+	mkdir -p build/obj
+	$(CC) -c $< -o $@ $(CFLAGS) -Iinclude
 
+.PHONY: clean
 clean:
 	rm -r -f build
+
+.PHONY: clean_libs
+clean_libs:
+	$(MAKE) -C libs/mbd-mqtt-packer  clean
