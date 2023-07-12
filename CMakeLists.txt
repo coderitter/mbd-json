@@ -15,7 +15,7 @@ include(GNUInstallDirs)
 #### Add targets ####
 set(TargetName ${PROJECT_NAME})
 set(ProjectTargets ${ProjectTargets} ${TargetName})
-set(TargetsPath ${TargetsPath} ${CMAKE_CURRENT_LIST_DIR}/src/ ${CMAKE_CURRENT_LIST_DIR}/include/)
+set(TargetsPath ${TargetsPath} ${CMAKE_CURRENT_LIST_DIR}/include/)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
