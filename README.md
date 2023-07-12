@@ -342,5 +342,5 @@ set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "<PATH_TO_MBD_JSON_INSTALL_DIR>")
 To use mbd-json lib in cmake project, call within your CMakeLists.txt:
 ```
 find_package(mbd-json REQUIRED)
-target_link_libraries(${TargetName} Coderitter::mbd-json)
+target_link_libraries(${TargetName} mbd-json::mbd-json)
 ```

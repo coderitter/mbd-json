@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(mbd-json-testing    LANGUAGES C
-                                        VERSION 1.0)
+project(mbd-json-testing VERSION 1.0 LANGUAGES C)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -14,16 +13,15 @@ set(TargetName mbd-json-testing)
 
 ###### add 3rd Party Libs ######
 # Coderitter embedded json lib
-set(MBD_JSON_INSTALL_DIR "${PROJECT_SOURCE_DIR}/../install/")
-set(MBD_JSON_ROOT_DIR "${PROJECT_SOURCE_DIR}/../3rdParty/mbd-json")
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MBD_JSON_INSTALL_DIR} ${MBD_JSON_ROOT_DIR})
-find_package(mbd-json REQUIRED)
+add_subdirectory(${PROJECT_SOURCE_DIR}/../ [binary_dir])
+if(NOT TARGET mbd-json)
+    find_package(mbd-json REQUIRED)
+else()
+    add_library(mbd-json::mbd-json ALIAS mbd-json)
+endif()
 ################################
 
 ###### add targets ######
-INCLUDE_DIRECTORIES(
-)
-
 set(HEADERS
     )
 
@@ -32,8 +30,10 @@ set(SOURCES
     )
 
 add_executable(${TargetName} ${HEADERS} ${SOURCES})
-target_link_libraries(${TargetName} Coderitter::mbd-json)
+target_link_libraries(${TargetName} mbd-json::mbd-json)
 set_target_properties(${TargetName} PROPERTIES
     DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
     
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${TargetName})
+
 install(TARGETS ${TargetName} RUNTIME DESTINATION "bin")

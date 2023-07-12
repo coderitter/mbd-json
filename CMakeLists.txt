@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-string(TIMESTAMP BUILD_DATE "%Y-%m-%d")
-  
-project(mbd-json   LANGUAGES C
-                            VERSION 1.0)
+project(mbd-json VERSION 1.0 LANGUAGES C)
 set(ProjectTargets)
 set(TargetsPath)
 
@@ -24,7 +21,7 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set(HEADERS
-        ${CMAKE_CURRENT_LIST_DIR}/include/mbd_json.h
+        ${CMAKE_CURRENT_LIST_DIR}/include/mbd_json/mbd_json.h
     )
 
 set(SOURCES
@@ -46,7 +43,7 @@ set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
 set(project_config "${generated_dir}/${PROJECT_NAME}Config.cmake")
 set(version_config "${generated_dir}/${PROJECT_NAME}ConfigVersion.cmake")
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
-set(namespace "Coderitter::")
+set(namespace "${PROJECT_NAME}::${TargetName}")
 set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
 
 write_basic_package_version_file(
@@ -54,7 +51,7 @@ write_basic_package_version_file(
 )
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake.in
         "${project_config}"
         INSTALL_DESTINATION "${config_install_dir}"
 )
