@@ -142,6 +142,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -169,6 +170,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -197,6 +199,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -225,6 +228,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -253,6 +257,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -281,6 +286,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -309,6 +315,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -337,6 +344,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -365,6 +373,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -393,6 +402,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -421,6 +431,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -493,6 +504,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 5, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -565,6 +577,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 5, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -584,7 +597,7 @@ void test_primitive_object(void) {
 
         } while (result != JSON_RESULT_FINISH);
         
-        check(object_start_count == object_end_count);
+        TEST_ASSERT_EQUAL(object_start_count, object_end_count);
     }
 
 }
@@ -622,6 +635,7 @@ void test_primitive_object(void) {
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 0, data.depth);
         TEST_ASSERT_EQUAL( 0, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -642,6 +656,7 @@ void test_primitive_object(void) {
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 0, data.depth);
         TEST_ASSERT_EQUAL( 0, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -672,6 +687,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -702,6 +718,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -732,6 +749,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -762,6 +780,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -792,6 +811,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -822,6 +842,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -852,6 +873,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -882,6 +904,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -912,6 +935,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -942,6 +966,7 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -1015,6 +1040,7 @@ void test_primitive_object(void) {
         result = parse_json(json, sizeof(json), &data);
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -1088,7 +1114,9 @@ void test_primitive_object(void) {
         result = parse_json(json, sizeof(json), &data);
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
+        TEST_ASSERT_EQUAL( JSON_ARRAY_END, data.type);
         TEST_ASSERT_EQUAL( 5, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -1098,8 +1126,6 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_VALUE, result);
         TEST_ASSERT_EQUAL( 0, data.depth);
-        //TEST_ASSERT_EQUAL( 4, data.path[0].start);
-        //TEST_ASSERT_EQUAL( 4, data.path[0].end);
         TEST_ASSERT_EQUAL( JSON_OBJECT_START, data.type);
         TEST_ASSERT_EQUAL( 0 , data.value.start);
         TEST_ASSERT_EQUAL( 0, data.value_counter[0]);
@@ -1196,9 +1222,9 @@ void test_primitive_object(void) {
         TEST_ASSERT_EQUAL( 0, data.depth);
         TEST_ASSERT_EQUAL( 13, data.path[1].start);
         TEST_ASSERT_EQUAL( 13, data.path[1].end);
-       // TEST_ASSERT_EQUAL( JSON_OBJECT_END, data.type);
+        TEST_ASSERT_EQUAL( JSON_OBJECT_END, data.type);
         TEST_ASSERT_EQUAL( 47, data.value.start);
-        TEST_ASSERT_EQUAL( 51, data.value.end);
+        TEST_ASSERT_EQUAL( 52, data.value.end);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);          
     }
     {
@@ -1209,8 +1235,6 @@ void test_primitive_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_VALUE, result);
         TEST_ASSERT_EQUAL( 0, data.depth);
-        //TEST_ASSERT_EQUAL( 4, data.path[0].start);
-        //TEST_ASSERT_EQUAL( 4, data.path[0].end);
         TEST_ASSERT_EQUAL( JSON_OBJECT_START, data.type);
         TEST_ASSERT_EQUAL( 0 , data.value.start);
         TEST_ASSERT_EQUAL( 0, data.value_counter[0]);
@@ -1307,7 +1331,7 @@ void test_primitive_object(void) {
         TEST_ASSERT_EQUAL( 0, data.depth);
         TEST_ASSERT_EQUAL( 13, data.path[1].start);
         TEST_ASSERT_EQUAL( 13, data.path[1].end);
-       // TEST_ASSERT_EQUAL( JSON_OBJECT_END, data.type);
+        TEST_ASSERT_EQUAL( JSON_ARRAY_END, data.type);
         TEST_ASSERT_EQUAL( 47, data.value.start);
         TEST_ASSERT_EQUAL( 51, data.value.end);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]); 
@@ -1367,6 +1391,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -1406,6 +1431,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -1515,6 +1541,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -1624,6 +1651,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -1685,6 +1713,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -1746,6 +1775,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -1947,6 +1977,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2148,6 +2179,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2189,6 +2221,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2230,6 +2263,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2343,6 +2377,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2456,6 +2491,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2525,6 +2561,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2594,6 +2631,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -2803,6 +2841,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -3012,6 +3051,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -3207,6 +3247,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
     {
         reset_json_data(&data);
@@ -3402,6 +3443,7 @@ void test_complex_object(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 6, data.type);
     }
 
 
@@ -3462,6 +3504,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -3505,6 +3548,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -3618,6 +3662,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -3731,6 +3776,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -3796,6 +3842,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -3861,6 +3908,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4068,6 +4116,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4275,6 +4324,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4315,6 +4365,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4355,6 +4406,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4466,6 +4518,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4577,6 +4630,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 1, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4638,6 +4692,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4699,6 +4754,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -4902,6 +4958,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -5105,6 +5162,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -5310,6 +5368,7 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
     {
         reset_json_data(&data);
@@ -5517,51 +5576,11 @@ void test_complex_array(void) {
 
         TEST_ASSERT_EQUAL( JSON_RESULT_FINISH, result);
         TEST_ASSERT_EQUAL( 2, data.value_counter[0]);
+        TEST_ASSERT_EQUAL( 1, data.type);
     }
 
 }
-/*void test_json_data_type_object_end(){
-    json_data_t json_data;
-    json_data.pos = 0;
-    json_data.max_depth = THING_CONFIG_JSON_DEPTH;
 
-    json_parsing_t parsing[THING_CONFIG_JSON_DEPTH];
-    json_data.parsing = &parsing[0];
-
-    json_start_end_t path[THING_CONFIG_JSON_DEPTH];
-    json_data.path = &path[0];
-
-    uint8_t value_counter[THING_CONFIG_JSON_DEPTH];
-    json_data.value_counter = &value_counter[0];
-
-    json_parse_result_t json_res;
-
-    reset_json_data(&json_data);
-    
-    uint8_t mbd_json_test_json[] = "{\"string\":\"Hello World\", \"number\":123,\"boolean\":true}";
-    const uint16_t mbd_json_test_json_size = strlen(mbd_json_test_json);
-
-    json_parse_result_t json_parse_result;
-    do{
-        json_parse_result = parse_json(mbd_json_test_json,mbd_json_test_json_size, &json_data); 
-        printf("json_parse_result:  %i\t\tjson_data.type:%i\n",json_parse_result, json_data.type);
-        TEST_ASSERT_EQUAL( 1, json_parse_result);
-        TEST_ASSERT_EQUAL( 5, json_data_type);
-        json_parse_result = parse_json(mbd_json_test_json,mbd_json_test_json_size, &json_data); 
-        TEST_ASSERT_EQUAL( 1, json_parse_result);
-        TEST_ASSERT_EQUAL( 7, json_data_type);
-        json_parse_result = parse_json(mbd_json_test_json,mbd_json_test_json_size, &json_data); 
-        TEST_ASSERT_EQUAL( 1, json_parse_result);
-        TEST_ASSERT_EQUAL( 4, json_data_type);
-        json_parse_result = parse_json(mbd_json_test_json,mbd_json_test_json_size, &json_data); 
-        TEST_ASSERT_EQUAL( 1, json_parse_result);
-        TEST_ASSERT_EQUAL( 2, json_data_type);
-        json_parse_result = parse_json(mbd_json_test_json,mbd_json_test_json_size, &json_data); 
-        TEST_ASSERT_EQUAL( 0, json_parse_result);
-        TEST_ASSERT_EQUAL( 6, json_data_type);
-    }while(json_parse_result != JSON_RESULT_FINISH);
-}
-*/
 
 void setUp(void){
     //Set things up
@@ -5578,12 +5597,4 @@ int main( void ) {
     RUN_TEST(test_complex_object);
     RUN_TEST(test_complex_array);
    return UNITY_END(); 
-   // static struct test const tests[] = {
-   //     { test_primitive_object, "Object with primitive values" },
-   //     { test_primitive_array, "Array with primitive values" },
-   //     { test_complex_object, "Objects with complex values" },
-   //     { test_complex_array, "Arrays with complex values" }
-   // };
-
-   // return test_suit(tests, sizeof tests / sizeof *tests);
 }
