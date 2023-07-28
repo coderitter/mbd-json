@@ -565,6 +565,26 @@ static int test_primitive_object(void) {
         check(result == JSON_RESULT_FINISH);
         check(data.value_counter[0] == 5);
     }
+    {
+        reset_json_data(&data);
+        const uint8_t json[] = "{\"property1\":null,\"property2\":{\"sub_prob1\":true,\"sub_prob2\":1234},\"property3\":false,\"property4\":-0.0,\"property5\":\"string\"}";
+        int result;
+        int object_start_count = 0;
+        int object_end_count = 0;
+
+        do
+        {
+            result = parse_json(json, sizeof(json), &data);
+            if(data.type == JSON_OBJECT_START)
+                object_start_count++;
+
+            if(data.type == JSON_OBJECT_END)
+                object_end_count++;
+
+        } while (result != JSON_RESULT_FINISH);
+        
+        check(object_start_count == object_end_count);
+    }
 
     return 0;
 }
