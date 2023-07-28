@@ -1,6 +1,6 @@
 # C JSON parser by Coderitter
 
-A zero copy ultra small footprint JSON parser.
+A zero copy ultra small footprint JSON parser which is not using recursion. It hands over every found property, object and array as positions in the JSON string. This concept allows for parsing chunk by chunk, thus being able to handle almost arbitrary large JSON strings with the constrained resources of an embedded system. The only limitation is the allowed structural depth.
 
 ```c
 #include <mbd-json.h>
@@ -302,7 +302,7 @@ if (data.depth == 1 &&
 }
 ```
 
-## Build C JSON Parser
+## Build
 Create build environment folder and move into
 ```
 mkdir build && cd build
