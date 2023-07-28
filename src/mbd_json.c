@@ -43,12 +43,12 @@ json_parse_result_t parse_json(const uint8_t* json, const uint16_t size, json_da
             }
 
             data->type = JSON_OBJECT_END;
-            
+            data->value.end = data->pos;
+
             if (data->depth == 0) {
                 return JSON_RESULT_FINISH;
             }
 
-            data->value.end = data->pos;
             data->depth--;
             data->pos++;
 
