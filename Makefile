@@ -11,6 +11,8 @@ build/mbd-json-test: $(SRC) $(INCLUDE) $(TEST) build/libmbd-json.a
 	$(CC) -std=gnu99 $(TEST) -o build/mbd-json-test \
 	$(CFLAGS) \
 	-Iinclude \
+	libs/Unity/src/unity.c \
+	-Ilibs/Unity/src \
 	-lmbd-json -Lbuild \
 
 build/libmbd-json.a: $(OBJ)
@@ -24,3 +26,7 @@ build/obj/%.o: src/%.c
 .PHONY: clean
 clean:
 	rm -r -f build
+
+.PHONY: clean_libs
+clean_libs:
+	$(MAKE) -C libs/mbd-mqtt-packer  clean	
