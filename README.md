@@ -1,6 +1,6 @@
 # C JSON parser by Coderitter
 
-A zero copy ultra small footprint JSON parser.
+A zero copy ultra small footprint JSON parser which is not using recursion. It hands over every found property, object and array as positions in the JSON string. This concept allows for parsing chunk by chunk, thus being able to handle almost arbitrary large JSON strings with the constrained resources of an embedded system. The only limitation is the allowed structural depth.
 
 ```c
 #include <mbd-json.h>
@@ -300,4 +300,47 @@ if (data.depth == 1 &&
         }
     }
 }
+```
+
+## Build
+Create build environment folder and move into
+```
+mkdir build && cd build
+```
+
+Call cmake to generate make files and call make for building lib:
+```
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make
+```
+
+To install lib package to default path `/usr/local` call make again:
+```
+make install
+```
+
+To install lib package to a custom folder, e.g. into an installation folder within the project folder, call cmake like this:
+```
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${PWD}/../install
+make
+make install
+```
+
+This will change the cmake install prefix to `$PROJECT_ROOT/install` where now the lib package will be installed.
+
+## Link and use CMake library package
+
+In CMake projects the library package has to be known to the `CMAKE_PREFIX_PATH`.
+This is the case, if it is installed to a `$PATH`-known location like `/usr/local`
+or if the library installation path is added manually to `CMAKE_PREFIX_PATH` within the projects CMakeLists.txt.
+
+This can be done like this:
+```
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "<PATH_TO_MBD_JSON_INSTALL_DIR>")
+```
+
+To use mbd-json lib in cmake project, call within your CMakeLists.txt:
+```
+find_package(mbd-json REQUIRED)
+target_link_libraries(${TargetName} mbd-json::mbd-json)
 ```

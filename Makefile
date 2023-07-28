@@ -6,9 +6,9 @@ INCLUDE := $(wildcard include/*.h)
 TEST := test/mbd_json.test.c
 OBJ := $(SRC:src/%.c=build/obj/%.o)
 
-build/test: $(SRC) $(INCLUDE) $(TEST) build/libmbd-json.a
+build/mbd-json-test: $(SRC) $(INCLUDE) $(TEST) build/libmbd-json.a
 	mkdir -p build
-	$(CC) -std=gnu99 $(TEST) -o build/test \
+	$(CC) -std=gnu99 $(TEST) -o build/mbd-json-test \
 	$(CFLAGS) \
 	-Iinclude \
 	libs/Unity/src/unity.c \
@@ -29,4 +29,4 @@ clean:
 
 .PHONY: clean_libs
 clean_libs:
-	$(MAKE) -C libs/mbd-mqtt-packer  clean
+	$(MAKE) -C libs/mbd-mqtt-packer  clean	
