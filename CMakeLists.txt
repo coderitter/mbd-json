@@ -20,15 +20,12 @@ set(TargetsPath ${TargetsPath} ${CMAKE_CURRENT_LIST_DIR}/include/)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set(HEADERS
-        ${CMAKE_CURRENT_LIST_DIR}/include/mbd_json/mbd_json.h
-    )
-
-set(SOURCES
+add_library(${TargetName})
+target_sources(${TargetName}
+    PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/src/mbd_json.c
-    )
-
-add_library(${TargetName} ${HEADERS} ${SOURCES})
+        ${CMAKE_CURRENT_LIST_DIR}/include/mbd_json/mbd_json.h
+)
 
 set_target_properties(${TargetName} PROPERTIES
     DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
@@ -43,7 +40,7 @@ set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
 set(project_config "${generated_dir}/${PROJECT_NAME}Config.cmake")
 set(version_config "${generated_dir}/${PROJECT_NAME}ConfigVersion.cmake")
 set(config_install_dir "lib/cmake/${PROJECT_NAME}")
-set(namespace "${PROJECT_NAME}::${TargetName}")
+set(namespace "${PROJECT_NAME}::")
 set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
 
 write_basic_package_version_file(
